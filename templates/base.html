@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{% block title %}Сайт{% endblock %}</title>
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'Car/styles.css' %}">
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="container header-inner">
+                <a class="site-logo" href="{% url 'home' %}">Автокаталог</a>
+
+                <nav class="site-nav" aria-label="Головне меню">
+                    <a class="nav-link" href="{% url 'home' %}">Головна</a>
+                    <a class="nav-link" href="{% url 'page1' %}">Сторінка 1</a>
+                    <a class="nav-link" href="{% url 'page2' %}">Сторінка 2</a>
+                </nav>
+
+                <nav class="site-categories" aria-label="Категорії">
+                    <span class="categories-title">Категорії:</span>
+                    {% for brand in brands %}
+                        <a class="category-link" href="{% url 'category' brand.id %}">
+                            {{ brand.name }}
+                        </a>
+                    {% endfor %}
+                </nav>
+            </div>
+        </header>
+
+        <main class="container site-main">
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer class="site-footer">
+            <div class="container footer-inner">
+                <div class="footer-col">
+                    <h3>Автокаталог</h3>
+                    <p class="muted">© 2026. Лабораторна робота 5.</p>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">Швидкі посилання</h4>
+                    <a class="footer-link" href="{% url 'home' %}">Головна</a>
+                    <a class="footer-link" href="{% url 'page1' %}">Сторінка 1</a>
+                    <a class="footer-link" href="{% url 'page2' %}">Сторінка 2</a>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

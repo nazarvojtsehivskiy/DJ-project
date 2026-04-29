@@ -1,0 +1,170 @@
+/* Global styles for the lab site. Keep templates free of CSS per requirement. */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f6f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    width: min(1100px, 92%);
+    margin: 0 auto;
+}
+
+.site-header {
+    background: #0f172a;
+    color: #ffffff;
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.site-logo {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.site-nav,
+.site-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.categories-title {
+    opacity: 0.9;
+    font-weight: 600;
+    margin-right: 4px;
+}
+
+.nav-link,
+.category-link {
+    color: #e5e7eb;
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.nav-link:hover,
+.category-link:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.site-main {
+    padding: 28px 0;
+    flex: 1;
+}
+
+.page-title {
+    margin-top: 0;
+    font-size: 30px;
+}
+
+.page-subtitle {
+    margin-top: 8px;
+    opacity: 0.9;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-top: 18px;
+}
+
+.card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 16px;
+}
+
+.card-title {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+}
+
+.card-meta {
+    margin: 0 0 10px 0;
+    opacity: 0.85;
+}
+
+.card-price,
+.card-card-price {
+    margin: 0;
+    font-weight: 700;
+}
+
+.page-links {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-secondary {
+    background: #111827;
+}
+
+.site-footer {
+    background: #111827;
+    color: #e5e7eb;
+    padding: 26px 0;
+    margin-top: auto;
+}
+
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.footer-title {
+    margin: 0 0 10px 0;
+}
+
+.footer-col a {
+    display: inline-block;
+    color: #e5e7eb;
+    text-decoration: none;
+    margin-right: 12px;
+    margin-top: 8px;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
+
+.muted {
+    opacity: 0.9;
+}
+

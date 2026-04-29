@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>{{ text }}</h1>
+{% extends 'base.html' %}
 
-<a href="/">На головну</a>
-</body>
-</html>
+{% block title %}Сторінка 2{% endblock %}
+
+{% block content %}
+<h1 class="page-title">{{ text }}</h1>
+
+<div class="page-links">
+    <a class="btn" href="{% url 'home' %}">На головну</a>
+    <a class="btn btn-secondary" href="{% url 'page1' %}">Перейти на сторінку 1</a>
+</div>
+{% endblock %}

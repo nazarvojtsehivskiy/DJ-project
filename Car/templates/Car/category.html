@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Категорія{% endblock %}
+
+{% block content %}
+<h1 class="page-title">
+    Категорія: {{ selected_brand.name }}
+</h1>
+<p class="page-subtitle">Машини, що належать вибраному бренду.</p>
+
+<section class="grid">
+    {% for car in cars %}
+        <article class="card">
+            <h3 class="card-title">{{ car.name }}</h3>
+            <p class="card-meta">{{ car.brand.name }}</p>
+            <p class="card-card-price">{{ car.price }} грн</p>
+        </article>
+    {% empty %}
+        <p>У цій категорії ще немає машин.</p>
+    {% endfor %}
+</section>
+{% endblock %}
+
