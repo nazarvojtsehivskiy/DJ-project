@@ -13,6 +13,7 @@ class Car(models.Model):
     name = models.CharField(max_length=100)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     price = models.IntegerField()
+    photo = models.ImageField(upload_to='cars/', blank=True, null=True, verbose_name='Фото')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

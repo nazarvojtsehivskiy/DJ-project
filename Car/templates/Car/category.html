@@ -10,10 +10,17 @@
 
 <section class="grid">
     {% for car in cars %}
-        <article class="card">
-            <h3 class="card-title">{{ car.name }}</h3>
-            <p class="card-meta">{{ car.brand.name }}</p>
-            <p class="card-card-price">{{ car.price }} грн</p>
+        <article class="card card-link-wrapper">
+            <a class="card-link" href="{% url 'car_detail' car.pk %}">
+                {% if car.photo %}
+                    <img class="card-thumb" src="{{ car.photo.url }}" alt="" width="400" height="220" loading="lazy" />
+                {% else %}
+                    <div class="card-thumb-placeholder" aria-hidden="true">Без фото</div>
+                {% endif %}
+                <h3 class="card-title">{{ car.name }}</h3>
+                <p class="card-meta">{{ car.brand.name }}</p>
+                <p class="card-price">{{ car.price }} грн</p>
+            </a>
         </article>
     {% empty %}
         <p>У цій категорії ще немає машин.</p>

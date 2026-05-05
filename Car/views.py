@@ -18,6 +18,12 @@ def category(request, brand_id: int):
         {'brands': brands, 'cars': cars, 'selected_brand': selected_brand},
     )
 
+
+def car_detail(request, pk: int):
+    brands = Brand.objects.all()
+    car = get_object_or_404(Car.objects.select_related('brand'), pk=pk)
+    return render(request, 'Car/car_detail.html', {'brands': brands, 'car': car})
+
 def page1(request):
     brands = Brand.objects.all()
     return render(request, 'Car/page1.html', {'text': 'Це сторінка 1', 'brands': brands})

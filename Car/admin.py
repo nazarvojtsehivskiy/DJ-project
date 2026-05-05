@@ -8,7 +8,7 @@ class BrandAdmin(admin.ModelAdmin):
 
 @admin.register(Car)
 class CarAdmin(admin.ModelAdmin):
-    list_display = ('name', 'brand', 'price', 'created_at', 'updated_at')
+    list_display = ('name', 'brand', 'price', 'photo', 'created_at', 'updated_at')
 
 
 @admin.register(Review)

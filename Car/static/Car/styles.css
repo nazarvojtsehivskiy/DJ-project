@@ -83,6 +83,17 @@ body {
     opacity: 0.9;
 }
 
+.hero-car-image {
+    display: block;
+    width: 100%;
+    max-height: 360px;
+    object-fit: cover;
+    border-radius: 14px;
+    margin-top: 14px;
+    border: 1px solid #e5e7eb;
+    background: #e5e7eb;
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -111,6 +122,110 @@ body {
 .card-card-price {
     margin: 0;
     font-weight: 700;
+}
+
+.card-link-wrapper {
+    padding: 0;
+    overflow: hidden;
+}
+
+.card-link {
+    display: block;
+    padding: 16px;
+    color: inherit;
+    text-decoration: none;
+}
+
+.card-link:hover .card-title {
+    text-decoration: underline;
+}
+
+.card-thumb {
+    display: block;
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    background: #e5e7eb;
+}
+
+.card-thumb-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 140px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #e5e7eb, #d1d5db);
+    color: #6b7280;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.product-detail {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: start;
+}
+
+@media (max-width: 760px) {
+    .product-detail {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+.product-detail-photo {
+    width: 100%;
+    max-height: 360px;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+}
+
+.product-detail-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 240px;
+    border-radius: 16px;
+    border: 1px dashed #cbd5f5;
+    background: #eef2ff;
+    color: #4338ca;
+    font-weight: 600;
+}
+
+.product-detail-category {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+.product-detail-category a {
+    color: #2563eb;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.product-detail-category a:hover {
+    text-decoration: underline;
+}
+
+.product-detail-title {
+    margin-bottom: 8px;
+}
+
+.product-detail-price {
+    margin: 0 0 12px 0;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.btn-buy:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
 }
 
 .page-links {

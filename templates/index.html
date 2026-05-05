@@ -1,15 +1,31 @@
 {% extends 'base.html' %}
 
+{% block title %}Головна{% endblock %}
+
 {% block content %}
 <h1 class="page-title">Всі машини</h1>
-<p class="page-subtitle">Оберіть категорію (бренд) у меню, щоб відфільтрувати список.</p>
+<p class="page-subtitle">Оберіть категорію (бренд) у меню, щоб відфільтрувати список або відкрийте картку авто.</p>
 
 <section class="grid">
     {% for car in cars %}
-        <article class="card">
-            <h3 class="card-title">{{ car.name }}</h3>
-            <p class="card-meta">{{ car.brand.name }}</p>
-            <p class="card-price">{{ car.price }} грн</p>
+        <article class="card card-link-wrapper">
+            <a class="card-link" href="{% url 'car_detail' car.pk %}">
+                {% if car.photo %}
+                    <img
+                        class="card-thumb"
+                        src="{{ car.photo.url }}"
+                        alt="{{ car.name }}"
+                        width="400"
+                        height="220"
+                        loading="lazy"
+                    />
+                {% else %}
+                    <div class="card-thumb-placeholder">Фото не додано в БД</div>
+                {% endif %}
+                <h3 class="card-title">{{ car.name }}</h3>
+                <p class="card-meta">{{ car.brand.name }}</p>
+                <p class="card-price">{{ car.price }} грн</p>
+            </a>
         </article>
     {% empty %}
         <p>Немає машин для відображення.</p>

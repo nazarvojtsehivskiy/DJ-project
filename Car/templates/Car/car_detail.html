@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ car.name }}{% endblock %}
+
+{% block content %}
+<article class="product-detail">
+    <div class="product-detail-media">
+        {% if car.photo %}
+            <img class="product-detail-photo" src="{{ car.photo.url }}" alt="{{ car.name }}" width="560" height="360" loading="lazy" />
+        {% else %}
+            <div class="product-detail-placeholder" aria-hidden="true">Немає фото</div>
+        {% endif %}
+    </div>
+    <div class="product-detail-body">
+        <p class="product-detail-category">
+            Категорія:
+            <a href="{% url 'category' car.brand_id %}">{{ car.brand.name }}</a>
+        </p>
+        <h1 class="page-title product-detail-title">{{ car.name }}</h1>
+        <p class="product-detail-price">{{ car.price }} грн</p>
+        <p class="page-subtitle">Опис моделі доступний у каталозі. Кнопку покупки увімкнемо на наступній лабі.</p>
+        <button type="button" class="btn btn-buy" disabled>Купити</button>
+    </div>
+</article>
+{% endblock %}
