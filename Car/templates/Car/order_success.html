@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Замовлення підтверджено{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto; text-align: center; padding: 40px 20px;">
+    <div style="font-size: 80px; margin-bottom: 20px;">✅</div>
+
+    <h1 class="page-title" style="color: #28a745;">Дякуємо за замовлення!</h1>
+
+    <p style="font-size: 1.2em; margin-bottom: 30px; color: #666;">
+        Ваше замовлення <b>#{{ order.pk }}</b> успішно оформлено!
+    </p>
+
+    <div style="background: #f9f9f9; padding: 30px; border-radius: 8px; text-align: left; margin-bottom: 30px;">
+        <h2 style="margin-top: 0; margin-bottom: 20px; font-size: 1.3em;">📦 Деталі замовлення</h2>
+
+        <div style="margin-bottom: 15px;">
+            <strong>Номер замовлення:</strong> #{{ order.pk }}
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <strong>ПІБ:</strong> {{ order.full_name }}
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <strong>Телефон:</strong> {{ order.phone }}
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <strong>Email:</strong> {{ order.email }}
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <strong>Адреса доставки:</strong> {{ order.delivery_address }}
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <strong>Дата та час забору:</strong> {{ order.delivery_date|date:"d.m.Y" }} о {{ order.delivery_time|time:"H:i" }}
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <strong>Спосіб оплати:</strong> 
+            {% if order.payment_method == 'paypal' %}
+                💰 PayPal
+            {% else %}
+                💳 Банківська картка
+            {% endif %}
+        </div>
+
+        <div style="margin-top: 25px; padding-top: 20px; border-top: 2px solid #ddd;">
+            <div style="font-size: 1.3em;">
+                <strong>Загальна сума:</strong> <span style="color: #28a745; font-size: 1.2em;">{{ order.total_price }} грн</span>
+            </div>
+        </div>
+    </div>
+
+    <div style="background: #fff3cd; padding: 20px; border-radius: 8px; border-left: 4px solid #ffc107; margin-bottom: 30px;">
+        <h3 style="margin-top: 0; margin-bottom: 10px;">💳 Наступний крок - Оплата</h3>
+        <p style="margin-bottom: 15px;">
+            {% if order.payment_method == 'paypal' %}
+                Для завершення оплати через <b>PayPal</b>, натисніть кнопку нижче:
+            {% else %}
+                Для завершення оплати <b>банківською карткою</b>, натисніть кнопку нижче:
+            {% endif %}
+        </p>
+
+        {% if order.payment_method == 'paypal' %}
+            <a href="#" class="btn btn-primary" style="font-size: 1.1em; padding: 12px 30px; text-decoration: none; display: inline-block;">
+                💰 Оплатити через PayPal
+            </a>
+        {% else %}
+            <a href="#" class="btn btn-primary" style="font-size: 1.1em; padding: 12px 30px; text-decoration: none; display: inline-block;">
+                💳 Оплатити карткою
+            </a>
+        {% endif %}
+
+        <p style="margin-top: 15px; font-size: 0.9em; color: #666;">
+            <i>Примітка: Це демо-версія. У реальному додатку тут буде інтеграція з платіжними системами.</i>
+        </p>
+    </div>
+
+    <div style="background: #d1ecf1; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        📧 На вашу пошту <b>{{ order.email }}</b> надіслано підтвердження замовлення
+    </div>
+
+    <a href="{% url 'home' %}" class="btn btn-secondary" style="text-decoration: none; display: inline-block;">
+        ← Повернутися на головну
+    </a>
+</div>
+
+{% endblock %}

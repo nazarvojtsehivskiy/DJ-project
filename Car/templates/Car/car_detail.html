@@ -18,8 +18,53 @@
         </p>
         <h1 class="page-title product-detail-title">{{ car.name }}</h1>
         <p class="product-detail-price">{{ car.price }} грн</p>
-        <p class="page-subtitle">Опис моделі доступний у каталозі. Кнопку покупки увімкнемо на наступній лабі.</p>
-        <button type="button" class="btn btn-buy" disabled>Купити</button>
+
+        <section class="product-rating">
+            {% if avg_rating %}
+                <p>Середня оцінка: <b>{{ avg_rating|floatformat:1 }}</b> / 5</p>
+            {% else %}
+                <p>Поки що немає оцінок.</p>
+            {% endif %}
+            <p>Кількість оцінок: <b>{{ review_count }}</b></p>
+
+            {% if my_review %}
+                <p>Ваша оцінка: <b>{{ my_review.rating }}</b> / 5</p>
+            {% endif %}
+        </section>
+
+        <section class="product-cart">
+            <form method="post" action="{% url 'cart_add' car.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-buy">
+                    Додати в кошик{% if cart_quantity %} (x{{ cart_quantity }}){% endif %}
+                </button>
+            </form>
+        </section>
+
+        <section class="product-rate-form">
+            <h3>Оцініть товар</h3>
+            <form method="post" action="{% url 'rate_car' car.pk %}">
+                {% csrf_token %}
+
+                <div class="form-row">
+                    <label for="id_rating">Ваша оцінка (1-5)</label>
+                    <select id="id_rating" name="rating" required>
+                        <option value="1" {% if rating_form.initial.rating == 1 %}selected{% endif %}>1</option>
+                        <option value="2" {% if rating_form.initial.rating == 2 %}selected{% endif %}>2</option>
+                        <option value="3" {% if rating_form.initial.rating == 3 %}selected{% endif %}>3</option>
+                        <option value="4" {% if rating_form.initial.rating == 4 %}selected{% endif %}>4</option>
+                        <option value="5" {% if rating_form.initial.rating == 5 %}selected{% endif %}>5</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <label for="id_text">Коментар (необов'язково)</label>
+                    <textarea id="id_text" name="text" rows="3">{{ rating_form.initial.text }}</textarea>
+                </div>
+
+                <button type="submit" class="btn btn-secondary">Зберегти оцінку</button>
+            </form>
+        </section>
     </div>
 </article>
 {% endblock %}

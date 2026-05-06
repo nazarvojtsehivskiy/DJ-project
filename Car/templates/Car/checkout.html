@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block title %}Оформлення замовлення{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Оформлення замовлення</h1>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px;">
+    <!-- Ліва частина: Форма -->
+    <div>
+        <form method="post" action="{% url 'checkout' %}" style="background: #f9f9f9; padding: 30px; border-radius: 8px;">
+            {% csrf_token %}
+
+            <h2 style="margin-top: 0; margin-bottom: 20px; font-size: 1.5em;">📋 Контактна інформація</h2>
+
+            <div class="form-row" style="margin-bottom: 15px;">
+                <label for="id_full_name" style="display: block; margin-bottom: 5px; font-weight: bold;">{{ form.full_name.label }}</label>
+                {{ form.full_name }}
+                {% if form.full_name.errors %}
+                    <div style="color: red; font-size: 0.9em;">{{ form.full_name.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-row" style="margin-bottom: 15px;">
+                <label for="id_phone" style="display: block; margin-bottom: 5px; font-weight: bold;">{{ form.phone.label }}</label>
+                {{ form.phone }}
+                {% if form.phone.errors %}
+                    <div style="color: red; font-size: 0.9em;">{{ form.phone.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-row" style="margin-bottom: 15px;">
+                <label for="id_email" style="display: block; margin-bottom: 5px; font-weight: bold;">{{ form.email.label }}</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div style="color: red; font-size: 0.9em;">{{ form.email.errors }}</div>
+                {% endif %}
+            </div>
+
+            <h2 style="margin-top: 30px; margin-bottom: 20px; font-size: 1.5em;">🚗 Доставка / Забір автомобіля</h2>
+
+            <div class="form-row" style="margin-bottom: 15px;">
+                <label for="id_delivery_address" style="display: block; margin-bottom: 5px; font-weight: bold;">{{ form.delivery_address.label }}</label>
+                {{ form.delivery_address }}
+                {% if form.delivery_address.errors %}
+                    <div style="color: red; font-size: 0.9em;">{{ form.delivery_address.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                <div class="form-row">
+                    <label for="id_delivery_date" style="display: block; margin-bottom: 5px; font-weight: bold;">{{ form.delivery_date.label }}</label>
+                    {{ form.delivery_date }}
+                    {% if form.delivery_date.errors %}
+                        <div style="color: red; font-size: 0.9em;">{{ form.delivery_date.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-row">
+                    <label for="id_delivery_time" style="display: block; margin-bottom: 5px; font-weight: bold;">{{ form.delivery_time.label }}</label>
+                    {{ form.delivery_time }}
+                    {% if form.delivery_time.errors %}
+                        <div style="color: red; font-size: 0.9em;">{{ form.delivery_time.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <h2 style="margin-top: 30px; margin-bottom: 20px; font-size: 1.5em;">💳 Спосіб оплати</h2>
+
+            <div class="form-row" style="margin-bottom: 15px;">
+                {% for choice in form.payment_method %}
+                    <div style="margin-bottom: 10px;">
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            {{ choice.tag }}
+                            <span style="margin-left: 8px; font-size: 1.1em;">
+                                {% if choice.choice_label == 'PayPal' %}
+                                    💰 PayPal
+                                {% else %}
+                                    💳 Банківська картка
+                                {% endif %}
+                            </span>
+                        </label>
+                    </div>
+                {% endfor %}
+                {% if form.payment_method.errors %}
+                    <div style="color: red; font-size: 0.9em;">{{ form.payment_method.errors }}</div>
+                {% endif %}
+            </div>
+
+            <h2 style="margin-top: 30px; margin-bottom: 20px; font-size: 1.5em;">📝 Додатково</h2>
+
+            <div class="form-row" style="margin-bottom: 20px;">
+                <label for="id_notes" style="display: block; margin-bottom: 5px; font-weight: bold;">{{ form.notes.label }}</label>
+                {{ form.notes }}
+                {% if form.notes.errors %}
+                    <div style="color: red; font-size: 0.9em;">{{ form.notes.errors }}</div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.2em; padding: 15px;">
+                ✅ Підтвердити замовлення
+            </button>
+        </form>
+    </div>
+
+    <!-- Права частина: Ваше замовлення -->
+    <div>
+        <div style="background: #fff; padding: 30px; border-radius: 8px; border: 2px solid #ddd; position: sticky; top: 20px;">
+            <h2 style="margin-top: 0; margin-bottom: 20px; font-size: 1.5em;">🛒 Ваше замовлення</h2>
+
+            {% for item in cart_items %}
+                <div style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee;">
+                    <div style="font-weight: bold; margin-bottom: 5px;">{{ item.car_name }}</div>
+                    <div style="color: #666; font-size: 0.9em; margin-bottom: 5px;">{{ item.brand_name }}</div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>{{ item.price }} грн × {{ item.quantity }}</span>
+                        <span style="font-weight: bold;">{{ item.subtotal }} грн</span>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #333;">
+                <div style="display: flex; justify-content: space-between; font-size: 1.3em; font-weight: bold;">
+                    <span>Разом:</span>
+                    <span>{{ total_price }} грн</span>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 15px; background: #f0f8ff; border-radius: 5px; font-size: 0.9em;">
+                ℹ️ Після підтвердження замовлення ви зможете здійснити оплату обраним способом.
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    input[type="time"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1em;
+        box-sizing: border-box;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="date"]:focus,
+    input[type="time"]:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #007bff;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Кошик{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Ваш кошик</h1>
+
+{% if cart_items %}
+    <section class="cart">
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Ціна</th>
+                    <th>К-сть</th>
+                    <th>Сума</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                    <tr>
+                        <td>
+                            <div class="cart-item-title">
+                                {% if item.car.photo %}
+                                    <img class="cart-item-photo" src="{{ item.car.photo.url }}" alt="{{ item.car.name }}" width="80" height="50" />
+                                {% else %}
+                                    <span>Без фото</span>
+                                {% endif %}
+                                <div>
+                                    <div><b>{{ item.car.name }}</b></div>
+                                    <div class="muted">{{ item.car.brand.name }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ item.car.price }} грн</td>
+                        <td>{{ item.quantity }}</td>
+                        <td><b>{{ item.subtotal }} грн</b></td>
+                        <td>
+                            <form method="post" action="{% url 'cart_remove' item.car.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-secondary">Видалити</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p class="cart-total">Разом: <b>{{ total_price }} грн</b></p>
+
+        <div style="margin-top: 20px;">
+            <a href="{% url 'checkout' %}" class="btn btn-primary" style="font-size: 1.1em; padding: 12px 30px; text-decoration: none; display: inline-block;">
+                🛒 Перейти до оформлення
+            </a>
+        </div>
+    </section>
+{% else %}
+    <p>Кошик порожній.</p>
+{% endif %}
+
+{% endblock %}
+
